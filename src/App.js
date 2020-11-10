@@ -2,7 +2,6 @@ import React from "react";
 import { render } from "react-dom";
 import { Pet } from "./Pet";
 
-// App => Component:
 const App = () => {
   return React.createElement("div", {}, [
     React.createElement("h1", {}, "Adopt me!"),
@@ -22,7 +21,6 @@ const App = () => {
 };
 
 render(
-  //React.createElement('h1', {class : 'caption', id: 'captionId', data : 'main-caption'}, 'Hello, World!'), // What to render...
   React.createElement(App), // What to render...
   document.getElementById("root") // Where to render...
 );
