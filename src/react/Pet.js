@@ -9,7 +9,7 @@ export const Pet = ({ name, animal, breed, id, media, location } = {}) => {
   }
 
   return (
-    <div className="pet">
+    <div className="pet" id={id}>
       <div className="image-container">
         <img src={imageAdress} alt={name} />
       </div>
