@@ -1,6 +1,7 @@
 import React from "react";
 import pet from "@frontendmasters/pet";
 import Carousel from "./Carousel";
+import ErrorBoundary from "./ErrorBoundary";
 
 class Details extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class Details extends React.Component {
   }
   // Called immediately after the component is mounted:
   componentDidMount() {
-    pet.animal(this.props.id).then(({ animal }) => {
+    pet.animal(Number(this.props.id)).then(({ animal }) => {
       this.setState({
         animal: animal.type,
         name: animal.name,
@@ -45,4 +46,10 @@ class Details extends React.Component {
   }
 }
 
-export default Details;
+export default function DetailsWithErrorBoundling(props) {
+  return (
+    <ErrorBoundary>
+      <Details {...props} />
+    </ErrorBoundary>
+  );
+}
