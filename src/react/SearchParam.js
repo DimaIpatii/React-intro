@@ -62,7 +62,7 @@ const SearchParam = () => {
         </label>
         <AnimalsDropDown />
         <AnimalsBreedDropDown />
-        <button style={{ backgroundColor: theme }}>Submit</button>
+        <button style={{ backgroundColor: theme.buttonColor }}>Submit</button>
       </form>
       <ShowPet pets={getPetsList} />
     </div>
