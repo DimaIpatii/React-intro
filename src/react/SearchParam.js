@@ -4,19 +4,18 @@ import UseDropDown from "./UseDropDown";
 import ShowPet from "./ShowPet";
 import ThemeContext from "./ThemeContext";
 
-const SearchParam = () => {
+function SearchParam() {
   var [getLocation, setLocation] = useState("Seattle, Wa");
   var [listOfBreeds, setListOfBreeds] = useState([]);
-  var [animalName, AnimalsDropDown] = UseDropDown("Animals", "", ANIMALS);
+  var [animalName, AnimalsDropDown] = UseDropDown("Animals", "All", ANIMALS);
   var [animalBreed, AnimalsBreedDropDown, selectBreed] = UseDropDown(
     "Breeds",
     "",
     listOfBreeds
   );
-  var [getPetsList, setPets] = useState([]);
+  var [getPetsList, setPets] = useState("");
   var [{ buttonColor }, setTheme] = useContext(ThemeContext);
-  console.log(buttonColor);
-  //
+
   // ********************************************
   async function submitAnimal() {
     var { animals } = await pet.animals({
@@ -25,10 +24,11 @@ const SearchParam = () => {
       type: animalName,
     });
 
-    console.log("Submit", animals, name);
-    console.log("Name", getLocation);
-
-    setPets(animals || []);
+    if (animals) {
+      setPets(animals);
+    } else {
+      setPets([]);
+    }
   }
 
   useEffect(() => {
@@ -36,13 +36,14 @@ const SearchParam = () => {
     selectBreed("");
 
     pet.breeds(animalName).then(({ breeds }) => {
-      const breedsNames = breeds.map(({ name }) => name);
-      setListOfBreeds(breedsNames);
-
-      console.log(animalName);
+      if (Array.isArray(breeds)) {
+        const breedsNames = breeds.map(({ name }) => name);
+        setListOfBreeds(breedsNames);
+      }
     }, console.error);
   }, [animalName, selectBreed, setListOfBreeds]);
 
+  // ********************************************
   return (
     <div className="search-params">
       <form
@@ -77,8 +78,8 @@ const SearchParam = () => {
         </label>
         <button style={{ backgroundColor: buttonColor }}>Submit</button>
       </form>
-      <ShowPet pets={getPetsList} />
+      {Array.isArray(getPetsList) ? <ShowPet pets={getPetsList} /> : null}
     </div>
   );
-};
+}
 export default SearchParam;

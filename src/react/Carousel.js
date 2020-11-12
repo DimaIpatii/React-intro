@@ -13,7 +13,6 @@ class Carousel extends React.Component {
   }
 
   static getDerivedStateFromProps({ media }) {
-    console.log("Derived Media", media);
     var photos = ["https://placecorgi.com/600/600"];
 
     if (media.length > 0) {
