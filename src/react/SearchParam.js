@@ -14,8 +14,8 @@ const SearchParam = () => {
     listOfBreeds
   );
   var [getPetsList, setPets] = useState([]);
-  var [theme] = useContext(ThemeContext);
-
+  var [{ buttonColor }, setTheme] = useContext(ThemeContext);
+  console.log(buttonColor);
   //
   // ********************************************
   async function submitAnimal() {
@@ -62,7 +62,20 @@ const SearchParam = () => {
         </label>
         <AnimalsDropDown />
         <AnimalsBreedDropDown />
-        <button style={{ backgroundColor: theme.buttonColor }}>Submit</button>
+        <label htmlFor="theme">
+          Theme
+          <select
+            value={buttonColor}
+            onChange={(event) => setTheme({ buttonColor: event.target.value })}
+            onBlur={(event) => setTheme({ buttonColor: event.target.value })}
+          >
+            <option value="peru">Peru</option>
+            <option value="darkblue">Darkblue</option>
+            <option value="mediumorchid">Mediun Orchid</option>
+            <option value="chartreuse">Chart Reuse</option>
+          </select>
+        </label>
+        <button style={{ backgroundColor: buttonColor }}>Submit</button>
       </form>
       <ShowPet pets={getPetsList} />
     </div>
